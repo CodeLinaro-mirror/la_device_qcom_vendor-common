@@ -1,6 +1,8 @@
 # define flag to determine the kernel
 TARGET_KERNEL_VERSION := $(shell ls -1r kernel | grep "msm-*" | sed 's/msm-//' | head -1)
 
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := vendor/qcom/opensource/core-utils/vendor_framework_compatibility_matrix.xml
+
 # Set TARGET_USES_NEW_ION for 4.14 and higher kernels
 ifeq ($(TARGET_KERNEL_VERSION),$(filter $(TARGET_KERNEL_VERSION),3.18 4.4 4.9))
 TARGET_USES_NEW_ION := false
@@ -619,7 +621,6 @@ MM_AUDIO += libOmxEvrcEnc
 MM_AUDIO += libOmxMp3Dec
 MM_AUDIO += libOmxQcelp13Enc
 MM_AUDIO += libOmxAc3HwDec
-MM_AUDIO += libstagefright_soft_flacdec
 
 #MM_CORE
 MM_CORE := libmm-omxcore
@@ -903,23 +904,6 @@ PRODUCT_PACKAGES += $(CRDA)
 PRODUCT_PACKAGES += $(WLAN)
 PRODUCT_PACKAGES += $(FD_LEAK)
 
-PRODUCT_PACKAGES += android.hardware.drm@1.0-impl
-PRODUCT_PACKAGES += android.hardware.drm@1.0-service
-PRODUCT_PACKAGES += android.hardware.drm@1.1-service.widevine
-PRODUCT_PACKAGES += android.hardware.drm@1.1-service.clearkey
-
-# Don't use dynamic DRM HAL for non-go SPs
-ifneq ($(TARGET_HAS_LOW_RAM),true)
-PRODUCT_PACKAGES += android.hardware.drm@1.2-service.widevine
-PRODUCT_PACKAGES += android.hardware.drm@1.2-service.clearkey
-else
-PRODUCT_PACKAGES += android.hardware.drm@1.2-service-lazy.widevine
-PRODUCT_PACKAGES += android.hardware.drm@1.2-service-lazy.clearkey
-endif
-
-ifeq ($(strip $(OTA_FLAG_FOR_DRM)),true)
-PRODUCT_PACKAGES += move_widevine_data.sh
-endif
 PRODUCT_PACKAGES += move_wifi_data.sh
 PRODUCT_PACKAGES += librs_jni
 PRODUCT_PACKAGES += libion
@@ -962,8 +946,6 @@ PRODUCT_COPY_FILES := \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.direct.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml \
-    frameworks/native/data/etc/android.hardware.sensor.proximity.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.proximity.xml \
-    frameworks/native/data/etc/android.hardware.sensor.light.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.light.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.software.device_id_attestation.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.device_id_attestation.xml \
@@ -982,12 +964,12 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_c2.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_c2.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_c2_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_c2_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_c2_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_c2_video.xml \
-    device/qcom/common/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles.xml \
-    device/qcom/common/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
+    device/qcom/common/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles.xml
 
 ifneq ($(TARGET_ENABLE_QC_AV_ENHANCEMENTS),true)
 PRODUCT_COPY_FILES += \
-    device/qcom/common/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
+    device/qcom/common/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
+    device/qcom/common/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
 endif
 
 ifneq ($(TARGET_NOT_SUPPORT_VULKAN),true)
