@@ -309,6 +309,8 @@ INIT += enable_swap.sh
 INIT += init.mdm.sh
 INIT += fstab.qcom
 INIT += fstab.qti
+INIT += fstab.default
+INIT += fstab.emmc
 INIT += init.qcom.sensors.sh
 INIT += init.qcom.crashdata.sh
 INIT += init.qcom.vendor.rc
@@ -818,6 +820,11 @@ else
 
     DELAUN := Launcher3
 endif
+
+#servicetracker HAL
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.servicetracker@1.2-impl \
+    vendor.qti.hardware.servicetracker@1.2-service
 
 #debugApp FDA
 PRODUCT_PACKAGES += FDA
