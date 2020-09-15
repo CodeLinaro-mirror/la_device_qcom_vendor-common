@@ -597,14 +597,6 @@ LIBQDUTILS := libqdutils
 #LIBQDMETADATA
 LIBQDMETADATA := libqdMetaData
 
-#LIBPOWER
-ifneq ($(TARGET_USES_NON_LEGACY_POWERHAL), true)
-LIBPOWER := power.qcom
-#LIBPOWER -- Add HIDL Packages
-LIBPOWER += android.hardware.power@1.0-impl
-LIBPOWER += android.hardware.power@1.0-service
-endif
-
 #LLVM for RenderScript
 #use qcom LLVM
 $(call inherit-product-if-exists, external/llvm/llvm-select.mk)
@@ -941,9 +933,6 @@ PRODUCT_PACKAGES += vcard
 # tcmiface for tcm support
 PRODUCT_PACKAGES += tcmiface
 
-# healthd libaray expanded for mode charger
-PRODUCT_PACKAGES += libhealthd.msm
-
 #intialise PRODUCT_PACKAGES_DEBUG list for debug modules
 PRODUCT_PACKAGES_DEBUG := init.qcom.testscripts.sh
 
@@ -1089,9 +1078,8 @@ PRODUCT_PACKAGES_DEBUG += \
 
 PRODUCT_PACKAGES += liboemaids_system
 PRODUCT_PACKAGES += liboemaids_vendor
+PRODUCT_PACKAGES += android.hardware.health@2.1-impl-qti
 PRODUCT_PACKAGES += android.hardware.health@2.1-service
-PRODUCT_PACKAGES += android.hardware.health@2.1-impl
-PRODUCT_PACKAGES += android.hardware.health@2.1-impl.recovery
 # framework detect libs
 PRODUCT_PACKAGES += libvndfwk_detect_jni.qti
 PRODUCT_PACKAGES += libqti_vndfwk_detect
