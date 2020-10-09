@@ -597,6 +597,14 @@ LIBQDUTILS := libqdutils
 #LIBQDMETADATA
 LIBQDMETADATA := libqdMetaData
 
+#LIBPOWER
+ifneq ($(TARGET_USES_NON_LEGACY_POWERHAL), true)
+LIBPOWER := power.qcom
+#LIBPOWER -- Add HIDL Packages
+LIBPOWER += android.hardware.power@1.0-impl
+LIBPOWER += android.hardware.power@1.0-service
+endif
+
 #LLVM for RenderScript
 #use qcom LLVM
 $(call inherit-product-if-exists, external/llvm/llvm-select.mk)
@@ -818,11 +826,6 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.servicetracker@1.2-impl \
     vendor.qti.hardware.servicetracker@1.2-service
 
-#debugUtils
-PRODUCT_PACKAGES_DEBUG += \
-     vendor.qti.hardware.debugutils@1.0-impl \
-     vendor.qti.hardware.debugutils@1.0-service
-
 #debugApp FDA
 PRODUCT_PACKAGES += FDA
 PRODUCT_PACKAGES += debug.script.rc
@@ -935,6 +938,11 @@ PRODUCT_PACKAGES += tcmiface
 
 #intialise PRODUCT_PACKAGES_DEBUG list for debug modules
 PRODUCT_PACKAGES_DEBUG := init.qcom.testscripts.sh
+
+#DebugUtils HAL
+PRODUCT_PACKAGES_DEBUG += \
+    vendor.qti.hardware.debugutils@1.0-impl \
+    vendor.qti.hardware.debugutils@1.0-service
 
 #Add init.qcom.test.rc to PRODUCT_PACKAGES_DEBUG list
 PRODUCT_PACKAGES_DEBUG += init.qcom.test.rc
