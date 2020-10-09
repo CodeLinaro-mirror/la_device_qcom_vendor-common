@@ -826,11 +826,6 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.servicetracker@1.2-impl \
     vendor.qti.hardware.servicetracker@1.2-service
 
-#debugUtils
-PRODUCT_PACKAGES_DEBUG += \
-     vendor.qti.hardware.debugutils@1.0-impl \
-     vendor.qti.hardware.debugutils@1.0-service
-
 #debugApp FDA
 PRODUCT_PACKAGES += FDA
 PRODUCT_PACKAGES += debug.script.rc
@@ -941,11 +936,13 @@ PRODUCT_PACKAGES += vcard
 # tcmiface for tcm support
 PRODUCT_PACKAGES += tcmiface
 
-# healthd libaray expanded for mode charger
-PRODUCT_PACKAGES += libhealthd.msm
-
 #intialise PRODUCT_PACKAGES_DEBUG list for debug modules
 PRODUCT_PACKAGES_DEBUG := init.qcom.testscripts.sh
+
+#DebugUtils HAL
+PRODUCT_PACKAGES_DEBUG += \
+    vendor.qti.hardware.debugutils@1.0-impl \
+    vendor.qti.hardware.debugutils@1.0-service
 
 #Add init.qcom.test.rc to PRODUCT_PACKAGES_DEBUG list
 PRODUCT_PACKAGES_DEBUG += init.qcom.test.rc
@@ -1089,9 +1086,8 @@ PRODUCT_PACKAGES_DEBUG += \
 
 PRODUCT_PACKAGES += liboemaids_system
 PRODUCT_PACKAGES += liboemaids_vendor
+PRODUCT_PACKAGES += android.hardware.health@2.1-impl-qti
 PRODUCT_PACKAGES += android.hardware.health@2.1-service
-PRODUCT_PACKAGES += android.hardware.health@2.1-impl
-PRODUCT_PACKAGES += android.hardware.health@2.1-impl.recovery
 # framework detect libs
 PRODUCT_PACKAGES += libvndfwk_detect_jni.qti
 PRODUCT_PACKAGES += libqti_vndfwk_detect
