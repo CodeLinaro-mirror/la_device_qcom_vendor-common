@@ -1,5 +1,5 @@
 # define flag to determine the kernel
-TARGET_KERNEL_VERSION := $(shell ls -1r kernel | grep "msm-*" | sed 's/msm-//' | head -1)
+TARGET_KERNEL_VERSION ?= $(shell ls -1r kernel | grep "msm-*" | sed 's/msm-//' | head -1)
 
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := vendor/qcom/opensource/core-utils/vendor_framework_compatibility_matrix.xml
 
@@ -828,9 +828,9 @@ PRODUCT_PACKAGES += \
 
 #debugApp FDA
 PRODUCT_PACKAGES += FDA
-PRODUCT_PACKAGES += debug.script.rc
-PRODUCT_PACKAGES += init.debug.script.sh
-PRODUCT_PACKAGES += init.myam.sh
+PRODUCT_PACKAGES += fda.script.rc
+PRODUCT_PACKAGES += init.fda.script.sh
+PRODUCT_PACKAGES += init.fda.am.sh
 
 PRODUCT_PACKAGES += $(ALSA_HARDWARE)
 PRODUCT_PACKAGES += $(ALSA_UCM)
