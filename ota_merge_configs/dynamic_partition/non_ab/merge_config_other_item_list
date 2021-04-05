@@ -1,3 +1,8 @@
+IMAGES/cache.img
+IMAGES/vendor.img
+IMAGES/vendor.map
+IMAGES/odm.img
+IMAGES/odm.map
 META/boot_filesystem_config.txt
 META/file_contexts.bin
 META/otakeys.txt
