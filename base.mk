@@ -37,6 +37,7 @@ QCOM_BOARD_PLATFORMS += sdm845
 QCOM_BOARD_PLATFORMS += msmnile
 QCOM_BOARD_PLATFORMS += sdm710
 QCOM_BOARD_PLATFORMS += msmnile_au
+QCOM_BOARD_PLATFORMS += msmnile_tb
 QCOM_BOARD_PLATFORMS += qcs605
 QCOM_BOARD_PLATFORMS += $(MSMSTEPPE)
 QCOM_BOARD_PLATFORMS += $(TRINKET)
@@ -1082,7 +1083,8 @@ PRODUCT_PACKAGES_DEBUG += \
     init.qti.debug-lito.sh \
     init.qti.debug-atoll.sh \
     init.qti.debug-trinket.sh \
-    init.qti.debug-bengal.sh
+    init.qti.debug-bengal.sh \
+    init.qti.debug-khaje.sh
 
 PRODUCT_PACKAGES += liboemaids_system
 PRODUCT_PACKAGES += liboemaids_vendor
