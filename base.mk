@@ -606,6 +606,18 @@ LIBPOWER += android.hardware.power@1.0-impl
 LIBPOWER += android.hardware.power@1.0-service
 endif
 
+ifeq ($(PLATFORM_VERSION), $(filter $(PLATFORM_VERSION),R 11))
+  SOONG_CONFIG_NAMESPACES += lights
+  SOONG_CONFIG_lights += lighttargets
+  SOONG_CONFIG_lights_lighttargets := lightaidltarget
+endif
+
+ifeq ($(PLATFORM_VERSION), $(filter $(PLATFORM_VERSION),S 12))
+  SOONG_CONFIG_NAMESPACES += lights
+  SOONG_CONFIG_lights += lighttargets
+  SOONG_CONFIG_lights_lighttargets := lightaidlV1target
+endif
+
 #LLVM for RenderScript
 #use qcom LLVM
 $(call inherit-product-if-exists, external/llvm/llvm-select.mk)
@@ -943,7 +955,8 @@ PRODUCT_PACKAGES_DEBUG := init.qcom.testscripts.sh
 #DebugUtils HAL
 PRODUCT_PACKAGES_DEBUG += \
     vendor.qti.hardware.debugutils@1.0-impl \
-    vendor.qti.hardware.debugutils@1.0-service
+    vendor.qti.hardware.debugutils@1.0-service \
+    PerfettoConfig.cfg
 
 #Add init.qcom.test.rc to PRODUCT_PACKAGES_DEBUG list
 PRODUCT_PACKAGES_DEBUG += init.qcom.test.rc
