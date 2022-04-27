@@ -625,6 +625,8 @@ $(call inherit-product-if-exists, external/llvm/llvm-select.mk)
 #LOC_API
 LOC_API := libloc_api-rpc-qc
 
+TARGET_HAS_LOW_RAM := true
+
 #MEDIA_PROFILES
 MEDIA_PROFILES := media_profiles.xml
 
@@ -794,33 +796,37 @@ FD_LEAK := libc_leak_detector
 
 PRODUCT_PACKAGES := \
     AccountAndSyncSettings \
-    DeskClock \
     AlarmProvider \
-    Calculator \
-    Calendar \
-    Camera \
     CertInstaller \
     DrmProvider \
-    Email \
-    Gallery2 \
-    LatinIME \
-    Music \
     netutils-wrapper-1.0 \
     Provision \
     Protips \
-    QuickSearchBox \
     Settings \
     Sync \
     SystemUI \
     Updater \
     CalendarProvider \
     SyncProvider \
-    SoundRecorder \
     IM \
+    SnapdragonLauncher
+
+ifneq ($(TARGET_1G_DDR_RAM), true)
+PRODUCT_PACKAGES += \
+    DeskClock \
+    Calculator \
+    Calendar \
+    Camera \
+    Email \
+    Gallery2 \
+    LatinIME \
+    Music \
+    QuickSearchBox \
+    SoundRecorder \
     SnapdragonGallery \
     SnapdragonMusic \
-    VideoEditor \
-    SnapdragonLauncher
+    VideoEditor
+endif
 
 ifeq ($(TARGET_HAS_LOW_RAM),true)
     DELAUN := Launcher3Go
