@@ -1,5 +1,6 @@
 IMAGES/product.img
 IMAGES/system.img
+IMAGES/system_dlkm.img
 IMAGES/system_ext.img
 IMAGES/vbmeta_system.img
 META/apexkeys.txt
@@ -12,4 +13,5 @@ META/update_engine_config.txt
 PRODUCT/*
 ROOT/*
 SYSTEM/*
+SYSTEM_DLKM/*
 SYSTEM_EXT/*
