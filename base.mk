@@ -973,6 +973,13 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_c2_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_c2_video.xml \
     device/qcom/common/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles.xml
 
+ifeq ($(TARGET_USES_QMAA),true)
+ifneq ($(TARGET_USES_QMAA_OVERRIDE_VIDEO),true)
+PRODUCT_COPY_FILES += \
+    device/qcom/common/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_vendor.xml
+endif
+endif
+
 ifneq ($(TARGET_ENABLE_QC_AV_ENHANCEMENTS),true)
 PRODUCT_COPY_FILES += \
     device/qcom/common/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
@@ -1078,8 +1085,6 @@ PRODUCT_PACKAGES_DEBUG += \
 
 PRODUCT_PACKAGES += liboemaids_system
 PRODUCT_PACKAGES += liboemaids_vendor
-PRODUCT_PACKAGES += android.hardware.health@2.1-impl-qti
-PRODUCT_PACKAGES += android.hardware.health@2.1-service
 # framework detect libs
 PRODUCT_PACKAGES += libvndfwk_detect_jni.qti
 PRODUCT_PACKAGES += libqti_vndfwk_detect
