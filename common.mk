@@ -5,6 +5,7 @@ $(call inherit-product, device/qcom/vendor-common/base.mk)
 # device-vendor.mk first to make sure QC specific files gets installed.
 $(call inherit-product-if-exists, $(QCPATH)/common/config/device-vendor-qssi.mk)
 
+ifeq ($(TARGET_SUPPORTS_WEAR_ANDROID),true)
 ifeq ($(TARGET_HAS_LOW_RAM),true)
     PRODUCT_PROPERTY_OVERRIDES += \
         keyguard.no_require_sim=true \
@@ -16,6 +17,11 @@ ifeq ($(TARGET_HAS_LOW_RAM),true)
     $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 else
     $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+endif
+endif
+
+ifeq ($(TARGET_SUPPORTS_WEAR_OS),true)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_system.mk)
 endif
 
 PRODUCT_BRAND := qcom

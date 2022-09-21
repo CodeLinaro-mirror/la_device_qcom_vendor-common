@@ -1,5 +1,5 @@
 # define flag to determine the kernel
-TARGET_KERNEL_VERSION := $(shell ls -1r kernel | grep "msm-*" | sed 's/msm-//' | head -1)
+TARGET_KERNEL_VERSION ?= $(subst /,,$(subst kernel/msm-,,$(dir $(wildcard kernel/msm-*/))))
 
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := vendor/qcom/opensource/core-utils/vendor_framework_compatibility_matrix.xml
 
@@ -48,8 +48,6 @@ QCOM_BOARD_PLATFORMS += bengal
 QSD8K_BOARD_PLATFORMS := qsd8k
 
 TARGET_USE_VENDOR_CAMERA_EXT := true
-
-BOARD_HAVE_QCOM_FM ?= true
 
 #Camera QC extends API
 #ifeq ($(strip $(TARGET_USES_QTIC_EXTENSION)),true)
@@ -128,7 +126,6 @@ AUDIO_HARDWARE += audio.primary.msm7627a
 AUDIO_HARDWARE += audio.primary.msm7630_surf
 AUDIO_HARDWARE += audio.primary.msm7630_fusion
 #AUDIO_HARDWARE += audio.primary.default
-AUDIO_HARDWARE += audio.a2dp.default
 AUDIO_HARDWARE += audio.usb.default
 AUDIO_HARDWARE += audio.r_submix.default
 AUDIO_HARDWARE += audio.primary.mpq8092
@@ -154,6 +151,7 @@ AUDIO_HARDWARE += audio.primary.kona
 AUDIO_HARDWARE += audio.primary.lito
 AUDIO_HARDWARE += audio.primary.atoll
 #
+ifneq ($(TARGET_SUPPORTS_WEAR_OS),true)
 AUDIO_POLICY := audio_policy.mpq8064
 AUDIO_POLICY += audio_policy.apq8084
 AUDIO_POLICY += audio_policy.msm8960
@@ -178,6 +176,7 @@ AUDIO_POLICY += audio_policy.msm8952
 AUDIO_POLICY += audio_policy.msm8937
 AUDIO_POLICY += audio_policy.msm8953
 AUDIO_POLICY += audio_policy.msmgold
+endif
 
 #HAL Wrapper
 AUDIO_WRAPPER := libqahw
