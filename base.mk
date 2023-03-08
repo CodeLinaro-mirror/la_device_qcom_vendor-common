@@ -3,7 +3,7 @@ TARGET_KERNEL_VERSION ?= $(shell ls -1r kernel | grep "msm-*" | sed 's/msm-//' |
 
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := vendor/qcom/opensource/core-utils/vendor_framework_compatibility_matrix.xml
 
-# Set TARGET_USES_NEW_ION for 4.14 and higher kernels
+# Set TARGET_USES_NEW_ION for 4.14 and higher kernels.
 ifeq ($(TARGET_KERNEL_VERSION),$(filter $(TARGET_KERNEL_VERSION),3.18 4.4 4.9))
 TARGET_USES_NEW_ION := false
 else
