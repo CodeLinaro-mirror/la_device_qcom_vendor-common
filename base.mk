@@ -37,6 +37,8 @@ QCOM_BOARD_PLATFORMS += sdm845
 QCOM_BOARD_PLATFORMS += msmnile
 QCOM_BOARD_PLATFORMS += sdm710
 QCOM_BOARD_PLATFORMS += msmnile_au
+QCOM_BOARD_PLATFORMS += gen4
+QCOM_BOARD_PLATFORMS += gen4_au
 QCOM_BOARD_PLATFORMS += qcs605
 QCOM_BOARD_PLATFORMS += $(MSMSTEPPE)
 QCOM_BOARD_PLATFORMS += $(TRINKET)
@@ -64,10 +66,10 @@ SKIP_BOOT_JARS_CHECK := true
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
 #List of targets that use video hw
-MSM_VIDC_TARGET_LIST := msm8974 msm8610 msm8226 apq8084 msm8916 msm8994 msm8909 msm8992 msm8996 msm8952 msm8937 msm8953 msm8998 apq8098_latv sdm660 sdm845 sdm710 qcs605 msmnile $(MSMSTEPPE) $(TRINKET) kona atoll lito
+MSM_VIDC_TARGET_LIST := msm8974 msm8610 msm8226 apq8084 msm8916 msm8994 msm8909 msm8992 msm8996 msm8952 msm8937 msm8953 msm8998 apq8098_latv sdm660 sdm845 sdm710 qcs605 msmnile gen4 $(MSMSTEPPE) $(TRINKET) kona atoll lito
 
 #List of targets that use master side content protection
-MASTER_SIDE_CP_TARGET_LIST := msm8996 msm8998 sdm660 sdm845 apq8098_latv sdm710 qcs605 msmnile $(MSMSTEPPE) $(TRINKET) kona lito atoll holi bengal
+MASTER_SIDE_CP_TARGET_LIST := msm8996 msm8998 sdm660 sdm845 apq8098_latv sdm710 qcs605 msmnile gen4 $(MSMSTEPPE) $(TRINKET) kona lito atoll holi bengal
 
 # Below projects/packages with LOCAL_MODULEs will be used by
 # PRODUCT_PACKAGES to build LOCAL_MODULEs that are tagged with
@@ -148,6 +150,7 @@ AUDIO_HARDWARE += audio.primary.apq8098_latv
 AUDIO_HARDWARE += audio.primary.sdm710
 AUDIO_HARDWARE += audio.primary.qcs605
 AUDIO_HARDWARE += audio.primary.msmnile
+AUDIO_HARDWARE += audio.primary.gen4
 AUDIO_HARDWARE += audio.primary.$(MSMSTEPPE)
 AUDIO_HARDWARE += audio.primary.$(TRINKET)
 AUDIO_HARDWARE += audio.primary.kona
@@ -464,6 +467,7 @@ LIBGRALLOC += gralloc.msm8937
 LIBGRALLOC += gralloc.msm8953
 LIBGRALLOC += gralloc.msm8998
 LIBGRALLOC += gralloc.msmnile
+LIBGRALLOC += gralloc.gen4
 LIBGRALLOC += gralloc.kona
 LIBGRALLOC += gralloc.lito
 LIBGRALLOC += gralloc.sdm845
@@ -492,6 +496,7 @@ LIBMEMTRACK += memtrack.msm8937
 LIBMEMTRACK += memtrack.msm8953
 LIBMEMTRACK += memtrack.msm8998
 LIBMEMTRACK += memtrack.msmnile
+LIBMEMTRACK += memtrack.gen4
 LIBMEMTRACK += memtrack.kona
 LIBMEMTRACK += memtrack.lito
 LIBMEMTRACK += memtrack.sdm660
@@ -525,6 +530,7 @@ LIBLIGHTS += lights.msm8937
 LIBLIGHTS += lights.msm8953
 LIBLIGHTS += lights.msm8998
 LIBLIGHTS += lights.msmnile
+LIBLIGHTS += lights.gen4
 LIBLIGHTS += lights.kona
 LIBLIGHTS += lights.lito
 LIBLIGHTS += lights.sdm660
@@ -559,6 +565,7 @@ LIBHWCOMPOSER += hwcomposer.msm8937
 LIBHWCOMPOSER += hwcomposer.msm8953
 LIBHWCOMPOSER += hwcomposer.msm8998
 LIBHWCOMPOSER += hwcomposer.msmnile
+LIBHWCOMPOSER += hwcomposer.gen4
 LIBHWCOMPOSER += hwcomposer.kona
 LIBHWCOMPOSER += hwcomposer.lito
 LIBHWCOMPOSER += hwcomposer.sdm660
@@ -1076,8 +1083,12 @@ PRODUCT_PACKAGES_DEBUG += \
     init.qti.debug-msmnile-apps.sh \
     init.qti.debug-msmnile-modem.sh \
     init.qti.debug-msmnile-slpi.sh \
+    init.qti.debug-gen4-apps.sh \
+    init.qti.debug-gen4-modem.sh \
+    init.qti.debug-gen4-slpi.sh \
     init.qti.debug-talos.sh \
     init.qti.debug-msmnile.sh \
+    init.qti.debug-gen4.sh \
     init.qti.debug-kona.sh \
     init.qti.debug-lito.sh \
     init.qti.debug-atoll.sh \
