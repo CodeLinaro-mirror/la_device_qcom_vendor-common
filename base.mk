@@ -114,8 +114,10 @@ ANGLE := libangle
 #APPOPS_POLICY
 APPOPS_POLICY := appops_policy.xml
 
+ifeq ($(call math_gt_or_eq, $(PLATFORM_SDK_VERSION), 34), false)
 #ATRACE_HAL
 ATRACE_HAL := android.hardware.atrace@1.0-service
+endif
 
 AUDIO_HARDWARE := audio.primary.mpq8064
 AUDIO_HARDWARE += audio.primary.apq8084
@@ -847,7 +849,9 @@ PRODUCT_PACKAGES += $(ALSA_HARDWARE)
 PRODUCT_PACKAGES += $(ALSA_UCM)
 PRODUCT_PACKAGES += $(ANGLE)
 PRODUCT_PACKAGES += $(APPOPS_POLICY)
+ifeq ($(call math_gt_or_eq, $(PLATFORM_SDK_VERSION), 34), false)
 PRODUCT_PACKAGES += $(ATRACE_HAL)
+endif
 PRODUCT_PACKAGES += $(AUDIO_HARDWARE)
 PRODUCT_PACKAGES += $(AUDIO_POLICY)
 PRODUCT_PACKAGES += $(AUDIO_WRAPPER)
