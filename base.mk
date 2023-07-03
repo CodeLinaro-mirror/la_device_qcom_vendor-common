@@ -813,7 +813,6 @@ PRODUCT_PACKAGES := \
     Sync \
     SystemUI \
     Updater \
-    CalendarProvider \
     SyncProvider \
     SoundRecorder \
     IM \
