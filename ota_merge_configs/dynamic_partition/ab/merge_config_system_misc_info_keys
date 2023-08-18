@@ -13,3 +13,6 @@ ab_update
 default_system_dev_certificate
 product_fs_type
 system_ext_fs_type
+product_disable_sparse
+system_disable_sparse
+system_ext_disable_sparse
