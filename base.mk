@@ -917,6 +917,9 @@ PRODUCT_PACKAGES += \
     make_ext4fs \
     setup_fs
 
+PRODUCT_SOONG_NAMESPACES += \
+    hardware/qcom/wlan \
+    hardware/qcom/wlan/qcwcn
 
 # MSM updater library
 PRODUCT_PACKAGES += librecovery_updater_msm
