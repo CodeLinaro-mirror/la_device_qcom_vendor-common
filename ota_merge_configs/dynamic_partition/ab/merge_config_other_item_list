@@ -2,6 +2,7 @@ IMAGES/odm.img
 IMAGES/vendor.img
 IMAGES/userdata.img
 META/boot_filesystem_config.txt
+META/vendor_boot_filesystem_config.txt
 META/file_contexts.bin
 META/otakeys.txt
 META/releasetools.py
