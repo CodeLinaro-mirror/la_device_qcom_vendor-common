@@ -4,6 +4,7 @@ IMAGES/vendor.img
 IMAGES/vendor_dlkm.img
 IMAGES/system_dlkm.img
 META/boot_filesystem_config.txt
+META/vendor_boot_filesystem_config.txt
 META/file_contexts.bin
 META/init_boot_filesystem_config.txt
 META/kernel_configs.txt
