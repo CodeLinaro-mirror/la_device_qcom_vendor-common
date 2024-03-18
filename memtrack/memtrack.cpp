@@ -18,7 +18,7 @@
 /*
  * Changes from Qualcomm Innovation Center are provided under the following
  * license:
- * Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved.
+ * Copyright (c) 2023-2024, Qualcomm Innovation Center, Inc. All rights reserved.
  * SPDX-License-Identifier: BSD-3-Clause-Clear
  */
 
@@ -40,13 +40,9 @@ ndk::ScopedAStatus Memtrack::getMemory(int pid, MemtrackType type,
         return ndk::ScopedAStatus(AStatus_fromExceptionCode(EX_UNSUPPORTED_OPERATION));
     }
 
-    /* When MemtrackType is GL and pid = 0, driver should return the global total
-     * unaccounted GPU-private memory. EX_UNSUPPORTED_OPERATION can be returned when
-     * this operation is not supported. Currently driver doesn't have support for PID 0,
-     * so return EX_UNSUPPORTED_OPERATION for such request.
-     */
     if (pid == 0 && type == MemtrackType::GL) {
-        return ndk::ScopedAStatus(AStatus_fromExceptionCode(EX_UNSUPPORTED_OPERATION));
+        getKgslTotalUnaccountedMemory(type, _aidl_return);
+        return ndk::ScopedAStatus::ok();
     }
 
     _aidl_return->clear();
