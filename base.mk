@@ -726,7 +726,6 @@ WPA += hs20-osu-client
 #ZLIB
 ZLIB := gzip
 ZLIB += libunz
-ZLIB_HOST := minigzip
 
 #Charger
 CHARGER := charger
@@ -1045,11 +1044,6 @@ endif
 # OEM Unlock reporting
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.oem_unlock_supported=1
-
-
-# VNDK-SP:
-PRODUCT_PACKAGES += \
-    vndk-sp \
 
 # Temporary handling
 #
