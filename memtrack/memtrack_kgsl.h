@@ -19,7 +19,7 @@
 /*
  * Changes from Qualcomm Innovation Center are provided under the following
  * license:
- * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
+ * Copyright (c) 2022,2024, Qualcomm Innovation Center, Inc. All rights reserved.
  * SPDX-License-Identifier: BSD-3-Clause-Clear
  */
 #include <aidl/android/hardware/memtrack/MemtrackRecord.h>
@@ -34,6 +34,8 @@ namespace hardware {
 namespace memtrack {
 
 int getKgslMemory(int pid, MemtrackType type,
+                  std::vector<MemtrackRecord> *records);
+int getKgslTotalUnaccountedMemory(MemtrackType type,
                   std::vector<MemtrackRecord> *records);
 
 }  // namespace memtrack
