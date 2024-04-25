@@ -1059,12 +1059,17 @@ else
   $(warning **********)
 endif
 
-ifeq ($(TARGET_HAS_LOW_RAM),true)
-    PRODUCT_PROPERTY_OVERRIDES += \
-        persist.vendor.qcomsysd.enabled=0
+ifeq ($(TARGET_SUPPORTS_WEARABLES),true)
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.vendor.qcomsysd.enabled=1
 else
-    PRODUCT_PROPERTY_OVERRIDES += \
-        persist.vendor.qcomsysd.enabled=1
+ifeq ($(TARGET_HAS_LOW_RAM),true)
+     PRODUCT_PROPERTY_OVERRIDES += \
+         persist.vendor.qcomsysd.enabled=0
+else
+     PRODUCT_PROPERTY_OVERRIDES += \
+         persist.vendor.qcomsysd.enabled=1
+endif
 endif
 
 PRODUCT_PACKAGES_DEBUG += \
