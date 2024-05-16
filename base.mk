@@ -954,7 +954,8 @@ PRODUCT_COPY_FILES := \
     frameworks/native/data/etc/android.software.device_id_attestation.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.device_id_attestation.xml \
     frameworks/native/data/etc/android.software.verified_boot.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.verified_boot.xml
 
-ifneq ($(filter $(TARGET_BOARD_PLATFORM), blair),$(TARGET_BOARD_PLATFORM))
+CONCURRENT_CAMERA_NOT_SUPPORTED_PLATFORMS := blair pitti
+ifneq ($(filter $(TARGET_BOARD_PLATFORM), $(CONCURRENT_CAMERA_NOT_SUPPORTED_PLATFORMS)),$(TARGET_BOARD_PLATFORM))
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.concurrent.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.concurrent.xml
 endif
