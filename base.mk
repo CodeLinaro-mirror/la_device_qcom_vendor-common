@@ -945,6 +945,8 @@ PRODUCT_PACKAGES_DEBUG := init.qcom.testscripts.sh
 #Add init.qcom.test.rc to PRODUCT_PACKAGES_DEBUG list
 PRODUCT_PACKAGES_DEBUG += init.qcom.test.rc
 PRODUCT_PACKAGES_DEBUG += init.qcom.debug.sh
+PRODUCT_PACKAGES_DEBUG += ueventd.qcom.userdebug.rc
+
 
 #NANOPB_LIBRARY_NAME := libnanopb-c-2.8.0
 
@@ -1059,12 +1061,17 @@ else
   $(warning **********)
 endif
 
-ifeq ($(TARGET_HAS_LOW_RAM),true)
-    PRODUCT_PROPERTY_OVERRIDES += \
-        persist.vendor.qcomsysd.enabled=0
+ifeq ($(TARGET_SUPPORTS_WEARABLES),true)
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.vendor.qcomsysd.enabled=1
 else
-    PRODUCT_PROPERTY_OVERRIDES += \
-        persist.vendor.qcomsysd.enabled=1
+ifeq ($(TARGET_HAS_LOW_RAM),true)
+     PRODUCT_PROPERTY_OVERRIDES += \
+         persist.vendor.qcomsysd.enabled=0
+else
+     PRODUCT_PROPERTY_OVERRIDES += \
+         persist.vendor.qcomsysd.enabled=1
+endif
 endif
 
 PRODUCT_PACKAGES_DEBUG += \
