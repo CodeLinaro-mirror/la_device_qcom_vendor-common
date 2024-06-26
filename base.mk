@@ -1041,9 +1041,6 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.oem_unlock_supported=1
 
 
-# VNDK-SP:
-PRODUCT_PACKAGES += \
-    vndk-sp \
 
 # Temporary handling
 #
