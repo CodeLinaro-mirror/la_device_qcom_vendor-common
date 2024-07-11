@@ -766,43 +766,48 @@ FD_LEAK := libc_leak_detector
 
 PRODUCT_PACKAGES := \
     AccountAndSyncSettings \
-    DeskClock \
     AlarmProvider \
-    Calculator \
-    Calendar \
-    Camera \
     CertInstaller \
     DrmProvider \
-    Email \
-    Gallery2 \
-    LatinIME \
-    Music \
     netutils-wrapper-1.0 \
     Provision \
-    Protips \
-    QuickSearchBox \
     Settings \
     Sync \
     SystemUI \
     Updater \
+    SyncProvider
+
+ifneq ($(TARGET_HAS_QTI_OPTIMIZATIONS), true)
+PRODUCT_PACKAGES := \
+    DeskClock \
+    Calculator \
+    Calendar \
     CalendarProvider \
-    SyncProvider \
+    Camera \
+    Email \
+    Gallery2 \
+    LatinIME \
+    Music \
+    Protips \
+    QuickSearchBox \
     SoundRecorder \
     IM \
     SnapdragonGallery \
     SnapdragonMusic \
     VideoEditor \
     SnapdragonLauncher
+endif #TARGET_HAS_QTI_OPTIMIZATIONS
 
 ifeq ($(TARGET_HAS_LOW_RAM),true)
     DELAUN := Launcher3Go
 else
     # Live Wallpapers
+ifneq ($(TARGET_HAS_QTI_OPTIMIZATIONS),true)
     PRODUCT_PACKAGES += \
             LiveWallpapers \
             LiveWallpapersPicker \
             VisualizationWallpapers
-
+endif #TARGET_HAS_QTI_OPTIMIZATIONS
     DELAUN := Launcher3
 
 #servicetracker HAL
