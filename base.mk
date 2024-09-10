@@ -10,6 +10,9 @@ else
 TARGET_USES_NEW_ION := true
 endif
 
+#List of targets where Vulkan feature level is restricted to 0
+VULKAN_FEATURE_LEVEL_0_TARGETS_LIST := msm8937_32 msm8937_64 sdm660_32 sdm660_64 msm8998 msm8998_32 msm8996 msm8953_64 msm8953_32 monaco monaco_go monaco_go_aon
+
 # Board platforms lists to be used for
 # TARGET_BOARD_PLATFORM specific featurization
 QCOM_BOARD_PLATFORMS += msm8974
@@ -988,8 +991,16 @@ PRODUCT_COPY_FILES += \
 endif
 
 ifneq ($(TARGET_NOT_SUPPORT_VULKAN),true)
+# Copy the vulkan feature level file.
+# Targets listed in VULKAN_FEATURE_LEVEL_0_TARGETS_LIST supports only vulkan feature level 0.
+ifneq ($(filter $(TARGET_BOARD_PLATFORM)$(TARGET_BOARD_SUFFIX),$(VULKAN_FEATURE_LEVEL_0_TARGETS_LIST)),)
 PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.vulkan.level-1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level-1.xml \
+    frameworks/native/data/etc/android.hardware.vulkan.level-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level-0.xml
+else
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.vulkan.level-1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level-1.xml
+endif
+PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.vulkan.version-1_1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.version-1_1.xml \
     frameworks/native/data/etc/android.hardware.vulkan.compute-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.compute-0.xml
 endif
@@ -1095,6 +1106,8 @@ PRODUCT_PACKAGES += liboemaids_vendor
 PRODUCT_PACKAGES += libvndfwk_detect_jni.qti
 PRODUCT_PACKAGES += libqti_vndfwk_detect
 PRODUCT_PACKAGES += libvndfwk_detect_jni.qti.vendor
+PRODUCT_PACKAGES += libvndfwk_detect_jni.qti_vendor
+PRODUCT_PACKAGES += libvndfwk_detect_jni.qti_vendor.vendor
 PRODUCT_PACKAGES += libqti_vndfwk_detect.vendor
 PRODUCT_PACKAGES += vndservicemanager
 PRODUCT_PACKAGES += vendor.qti.hardware.iop@2.0.vendor
