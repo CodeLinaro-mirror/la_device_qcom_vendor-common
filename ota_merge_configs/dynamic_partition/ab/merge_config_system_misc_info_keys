@@ -13,3 +13,9 @@ ab_update
 default_system_dev_certificate
 product_fs_type
 system_ext_fs_type
+building_product_image
+building_system_ext_image
+building_system_image
+has_pvmfw
+pvmfw_size
+avb_pvmfw_add_hash_footer_args
