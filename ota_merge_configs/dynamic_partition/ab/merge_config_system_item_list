@@ -10,6 +10,5 @@ META/system_manifest.xml
 META/system_matrix.xml
 META/update_engine_config.txt
 PRODUCT/*
-ROOT/*
 SYSTEM/*
 SYSTEM_EXT/*
