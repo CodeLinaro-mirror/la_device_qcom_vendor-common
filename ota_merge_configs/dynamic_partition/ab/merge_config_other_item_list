@@ -22,6 +22,7 @@ ODM/*
 OTA/android-info.txt
 PREBUILT_IMAGES/*
 RADIO/*
+ROOT/*
 RECOVERY/*
 VENDOR/*
 VENDOR_BOOT/*
