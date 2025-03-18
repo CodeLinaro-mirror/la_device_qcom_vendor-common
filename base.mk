@@ -940,7 +940,6 @@ PRODUCT_PACKAGES_DEBUG += ueventd.qcom.userdebug.rc
 
 PRODUCT_COPY_FILES := \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.flash-autofocus.xml \
-    frameworks/native/data/etc/android.hardware.camera.front.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.front.xml \
     frameworks/native/data/etc/android.hardware.camera.full.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.full.xml\
     frameworks/native/data/etc/android.hardware.camera.raw.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.raw.xml\
     frameworks/native/data/etc/android.hardware.location.gps.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.location.gps.xml \
@@ -955,6 +954,15 @@ PRODUCT_COPY_FILES := \
     frameworks/native/data/etc/android.software.verified_boot.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.verified_boot.xml
 
 CONCURRENT_CAMERA_NOT_SUPPORTED_PLATFORMS := blair pitti
+
+# XR platform currently do not support front camera, and concurrency of rear and front is also not supported
+ifeq ($(TARGET_DEFINES_XR_CONFIGURATION),true)
+CONCURRENT_CAMERA_NOT_SUPPORTED_PLATFORMS += $(TARGET_BOARD_PLATFORM)
+else
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.camera.front.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.front.xml
+endif # TARGET_DEFINES_XR_CONFIGURATION
+
 ifneq ($(filter $(TARGET_BOARD_PLATFORM), $(CONCURRENT_CAMERA_NOT_SUPPORTED_PLATFORMS)),$(TARGET_BOARD_PLATFORM))
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.concurrent.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.concurrent.xml
