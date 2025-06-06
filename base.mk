@@ -10,6 +10,8 @@ else
 TARGET_USES_NEW_ION := true
 endif
 
+TARGET_HAS_LOW_RAM := true
+
 # Board platforms lists to be used for
 # TARGET_BOARD_PLATFORM specific featurization
 QCOM_BOARD_PLATFORMS += msm8974
