@@ -11,6 +11,7 @@ META/kernel_version.txt
 META/otakeys.txt
 META/releasetools.py
 META/vendor_filesystem_config.txt
+META/vendor_boot_filesystem_config.txt
 META/vendor_dlkm_filesystem_config.txt
 META/system_dlkm_filesystem_config.txt
 META/vendor_manifest.xml
