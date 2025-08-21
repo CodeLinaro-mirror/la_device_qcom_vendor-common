@@ -2,8 +2,12 @@
 ifeq ($(ENABLE_AB), true)
     # Handle Case for QSSI-Dynamic Partition
     ifeq ($(PRODUCT_USE_DYNAMIC_PARTITIONS), true)
-            $(call dist-for-goals,droidcore,device/qcom/vendor-common/ota_merge_configs/dynamic_partition/ab/merge_config_system_misc_info_keys)
+        ifeq (,$(filter $(TARGET_BOARD_DERIVATIVE_SUFFIX), _s_u))
             $(call dist-for-goals,droidcore,device/qcom/vendor-common/ota_merge_configs/dynamic_partition/ab/merge_config_other_item_list)
+        else
+            $(call dist-for-goals,droidcore,device/qcom/vendor-common/ota_merge_configs/dynamic_partition/ab/msmnile_au_s_u/merge_config_other_item_list)
+        endif
+            $(call dist-for-goals,droidcore,device/qcom/vendor-common/ota_merge_configs/dynamic_partition/ab/merge_config_system_misc_info_keys)
             $(call dist-for-goals,droidcore,device/qcom/vendor-common/ota_merge_configs/dynamic_partition/ab/merge_config_system_item_list)
     else
         $(call dist-for-goals,droidcore,device/qcom/vendor-common/ota_merge_configs/without_dynamic_partition/ab/merge_config_system_misc_info_keys)
