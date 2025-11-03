@@ -15,6 +15,7 @@ META/vendor_dlkm_filesystem_config.txt
 META/system_dlkm_filesystem_config.txt
 META/vendor_manifest.xml
 META/vendor_matrix.xml
+META/postinstall_config.txt
 BOOT/*
 INIT_BOOT/*
 DATA/*
