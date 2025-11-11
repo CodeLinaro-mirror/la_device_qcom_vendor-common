@@ -1,7 +1,7 @@
 # define flag to determine the kernel
 TARGET_KERNEL_VERSION ?= $(subst /,,$(subst kernel/msm-,,$(dir $(wildcard kernel/msm-*/))))
 
-DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := vendor/qcom/opensource/core-utils/vendor_framework_compatibility_matrix.xml
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += vendor/qcom/opensource/core-utils/vendor_framework_compatibility_matrix.xml
 
 # Set TARGET_USES_NEW_ION for 4.14 and higher kernels
 ifeq ($(TARGET_KERNEL_VERSION),$(filter $(TARGET_KERNEL_VERSION),3.18 4.4 4.9))
@@ -945,7 +945,6 @@ PRODUCT_PACKAGES_DEBUG += ueventd.qcom.userdebug.rc
 #NANOPB_LIBRARY_NAME := libnanopb-c-2.8.0
 
 PRODUCT_COPY_FILES := \
-    frameworks/native/data/etc/android.hardware.camera.concurrent.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.concurrent.xml \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.flash-autofocus.xml \
     frameworks/native/data/etc/android.hardware.camera.front.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.front.xml \
     frameworks/native/data/etc/android.hardware.camera.full.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.full.xml\
@@ -960,6 +959,11 @@ PRODUCT_COPY_FILES := \
     frameworks/native/data/etc/android.hardware.usb.host.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.software.device_id_attestation.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.device_id_attestation.xml \
     frameworks/native/data/etc/android.software.verified_boot.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.verified_boot.xml
+
+ifneq ($(filter $(TARGET_BOARD_PLATFORM), lahaina),$(TARGET_BOARD_PLATFORM))
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.camera.concurrent.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.concurrent.xml
+endif
 
 # gps/location secuity configuration file
 PRODUCT_COPY_FILES += \
@@ -1051,7 +1055,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 # have been removed, TARGET_FS_CONFIG_GEN should be made unconditional.
 DEVICE_CONFIG_DIR := $(dir $(firstword $(subst ]],, $(word 2, $(subst [[, ,$(_node_import_context))))))
 ifeq ($(wildcard $(DEVICE_CONFIG_DIR)/android_filesystem_config.h),)
-  TARGET_FS_CONFIG_GEN := device/qcom/common/config.fs
+  TARGET_FS_CONFIG_GEN += device/qcom/common/config.fs
 else
   $(warning **********)
   $(warning TODO: Need to replace legacy $(DEVICE_CONFIG_DIR)android_filesystem_config.h with config.fs)
