@@ -6,7 +6,9 @@ cc_binary {
     vendor: true,
     cflags: [
         "-Werror",
-        "-DLOG_TAG=\"memtrack\""
+        "-DLOG_TAG=\"memtrack\"",
+        "-Wno-error=format",
+        "-Wno-error=unused-parameter",
     ],
     shared_libs: [
         "libbase",
