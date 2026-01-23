@@ -972,6 +972,11 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.flash-autofocus.xml
 endif
 
+ifneq ($(TARGET_HAS_QTI_OPTIMIZATIONS), true)
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml
+endif #TARGET_HAS_QTI_OPTIMIZATIONS
+
 ifneq ($(filter $(TARGET_BOARD_PLATFORM), bengal trinket),$(TARGET_BOARD_PLATFORM))
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.concurrent.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.concurrent.xml
@@ -1000,12 +1005,14 @@ endif
 endif
 
 ifneq ($(TARGET_ENABLE_QC_AV_ENHANCEMENTS),true)
-PRODUCT_COPY_FILES += \
 ifeq ($(TARGET_HAS_QTI_OPTIMIZATIONS),true)
-    device/qcom/common/media/media_codecs_opt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
+PRODUCT_COPY_FILES += \
+    device/qcom/common/media/media_codecs_opt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
 else
-    device/qcom/common/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
+PRODUCT_COPY_FILES += \
+    device/qcom/common/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
 endif #TARGET_HAS_QTI_OPTIMIZATIONS
+PRODUCT_COPY_FILES += \
     device/qcom/common/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
 endif
 
