@@ -884,9 +884,9 @@ PRODUCT_PACKAGES += $(LOC_API)
 PRODUCT_PACKAGES += $(MEDIA_PROFILES)
 PRODUCT_PACKAGES += $(MM_AUDIO)
 PRODUCT_PACKAGES += $(MM_CORE)
-ifneq ($(TARGET_QCOM_IOT_LOW_RAM), true)
+ifneq ($(TARGET_HAS_QTI_OPTIMIZATIONS), true)
 PRODUCT_PACKAGES += $(MM_VIDEO)
-endif #TARGET_QCOM_IOT_LOW_RAM
+endif #TARGET_HAS_QTI_OPTIMIZATIONS
 PRODUCT_PACKAGES += $(OPENCORE)
 PRODUCT_PACKAGES += $(PPP)
 PRODUCT_PACKAGES += $(PROTOBUF)
@@ -991,7 +991,11 @@ endif
 
 ifneq ($(TARGET_ENABLE_QC_AV_ENHANCEMENTS),true)
 PRODUCT_COPY_FILES += \
+ifeq ($(TARGET_HAS_QTI_OPTIMIZATIONS),true)
+    device/qcom/common/media/media_codecs_opt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
+else
     device/qcom/common/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
+endif #TARGET_HAS_QTI_OPTIMIZATIONS
     device/qcom/common/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
 endif
 
