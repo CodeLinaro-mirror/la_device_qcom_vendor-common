@@ -819,10 +819,12 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.memtrack-service
 
 #debugApp FDA
+ifneq ($(TARGET_HAS_QTI_OPTIMIZATIONS), true)
 PRODUCT_PACKAGES += FDA
 PRODUCT_PACKAGES += fda.script.rc
 PRODUCT_PACKAGES += init.fda.script.sh
 PRODUCT_PACKAGES += init.fda.am.sh
+endif #TARGET_HAS_QTI_OPTIMIZATIONS
 
 PRODUCT_PACKAGES += $(ALSA_HARDWARE)
 PRODUCT_PACKAGES += $(ALSA_UCM)
