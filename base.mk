@@ -938,10 +938,12 @@ PRODUCT_PACKAGES += tcmiface
 #intialise PRODUCT_PACKAGES_DEBUG list for debug modules
 PRODUCT_PACKAGES_DEBUG := init.qcom.testscripts.sh
 
+ifneq ($(TARGET_QCOM_IOT_LOW_RAM), true)
 #DebugUtils HAL
 PRODUCT_PACKAGES_DEBUG += \
     vendor.qti.hardware.debugutils-service \
     PerfettoConfig.cfg
+endif #TARGET_QCOM_IOT_LOW_RAM
 
 #Add init.qcom.test.rc to PRODUCT_PACKAGES_DEBUG list
 PRODUCT_PACKAGES_DEBUG += init.qcom.test.rc
