@@ -762,43 +762,48 @@ FD_LEAK := libc_leak_detector
 
 PRODUCT_PACKAGES := \
     AccountAndSyncSettings \
-    DeskClock \
     AlarmProvider \
-    Calculator \
-    Calendar \
-    Camera \
     CertInstaller \
     DrmProvider \
-    Email \
-    Gallery2 \
-    LatinIME \
-    Music \
     netutils-wrapper-1.0 \
     Provision \
-    Protips \
-    QuickSearchBox \
     Settings \
     Sync \
     SystemUI \
     Updater \
+    SyncProvider
+
+ifneq ($(TARGET_HAS_QTI_OPTIMIZATIONS), true)
+PRODUCT_PACKAGES += \
+    DeskClock \
+    Calculator \
+    Calendar \
     CalendarProvider \
-    SyncProvider \
+    Camera \
+    Email \
+    Gallery2 \
+    LatinIME \
+    Music \
+    Protips \
+    QuickSearchBox \
     SoundRecorder \
     IM \
     SnapdragonGallery \
     SnapdragonMusic \
     VideoEditor \
     SnapdragonLauncher
+endif #TARGET_HAS_QTI_OPTIMIZATIONS
 
 ifeq ($(TARGET_HAS_LOW_RAM),true)
     DELAUN := Launcher3Go
 else
     # Live Wallpapers
+ifneq ($(TARGET_HAS_QTI_OPTIMIZATIONS),true)
     PRODUCT_PACKAGES += \
             LiveWallpapers \
             LiveWallpapersPicker \
             VisualizationWallpapers
-
+endif #TARGET_HAS_QTI_OPTIMIZATIONS
     DELAUN := Launcher3
 
 #servicetracker HAL
@@ -884,9 +889,9 @@ PRODUCT_PACKAGES += $(LOC_API)
 PRODUCT_PACKAGES += $(MEDIA_PROFILES)
 PRODUCT_PACKAGES += $(MM_AUDIO)
 PRODUCT_PACKAGES += $(MM_CORE)
-ifneq ($(TARGET_QCOM_IOT_LOW_RAM), true)
+ifneq ($(TARGET_HAS_QTI_OPTIMIZATIONS), true)
 PRODUCT_PACKAGES += $(MM_VIDEO)
-endif #TARGET_QCOM_IOT_LOW_RAM
+endif #TARGET_HAS_QTI_OPTIMIZATIONS
 PRODUCT_PACKAGES += $(OPENCORE)
 PRODUCT_PACKAGES += $(PPP)
 PRODUCT_PACKAGES += $(PROTOBUF)
@@ -954,11 +959,15 @@ PRODUCT_COPY_FILES := \
     frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.direct.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.sip.voip.xml \
-    frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.software.device_id_attestation.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.device_id_attestation.xml \
     frameworks/native/data/etc/android.software.verified_boot.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.verified_boot.xml
+
+ifneq ($(TARGET_HAS_QTI_OPTIMIZATIONS), true)
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml
+endif #TARGET_HAS_QTI_OPTIMIZATIONS
 
 CONCURRENT_CAMERA_NOT_SUPPORTED_PLATFORMS := lahaina shikra
 ifneq ($(filter $(TARGET_BOARD_PLATFORM), $(CONCURRENT_CAMERA_NOT_SUPPORTED_PLATFORMS)),$(TARGET_BOARD_PLATFORM))
@@ -1005,7 +1014,11 @@ endif
 
 ifneq ($(TARGET_ENABLE_QC_AV_ENHANCEMENTS),true)
 PRODUCT_COPY_FILES += \
+ifeq ($(TARGET_HAS_QTI_OPTIMIZATIONS),true)
+    device/qcom/common/media/media_codecs_opt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
+else
     device/qcom/common/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
+endif #TARGET_HAS_QTI_OPTIMIZATIONS
     device/qcom/common/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
 endif
 
